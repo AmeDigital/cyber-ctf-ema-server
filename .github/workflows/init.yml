@@ -1,0 +1,35 @@
+name: Init Project
+
+on: 
+  workflow_dispatch:
+    inputs:
+      project_name:
+        type: string
+        description: 'Define project name'     
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: greet
+        run: | 
+          echo "${{ secrets.GITHUB_TOKEN }} project_name is ${{ github.event.inputs.project_name }}"
+          
+  create:
+    name: Create
+    needs: [build]
+    runs-on: ubuntu-latest
+    environment: 
+      name: approvers
+      url: "https://github.com/AmeDigital/${{ github.event.inputs.project_name }}"
+    steps:
+      - name: Repo
+        run: |
+          curl -X POST -H "Accept: application/vnd.github.v3+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/AmeDigital/template_poc/generate -d '{"name":"${{ github.event.inputs.project_name }}"}'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
