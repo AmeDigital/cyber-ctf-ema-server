@@ -1,0 +1,57 @@
+server:
+  port : 80
+  connection-timeout: 5s
+  tomcat:
+    threads:
+      max: 2000
+  error:
+    include-stacktrace: never
+
+logging:
+  file:
+    path: /var/log/emaserver
+  level:
+    root: INFO
+    br:
+     com:
+      ema: INFO
+    org:
+      springframework:
+        web: FATAL
+  logback:
+    rollingpolicy:
+      file-name-pattern: "${LOG_FILE}.%d{yyyy-MM-dd}.%i.gz"
+
+jwt:
+  secret: c3NlY3JldC1rZXktc2VjcmV0LWtleS1zZWNyZXQta2V5LXNlY3JldC1rZXktc2VjcmV0LWtleS1zZWNyZXQta2V5LXNlY3JldC1rZXktc2VjcmV0LWtleS1zZWNyZXQta2V5LXNlY3JldC1rZXktc2VjcmV0LWtleS1lY3JldC1rZXktcw==
+  expiration: 86400000
+
+spring:
+  jndi:
+    ignore: false
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://database_local:3306/ema_local
+    username: root
+    password: AM3_DIGITAL_R3D_D3V_R3D3MPT1ON
+  jpa:
+    generate-dll: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL5Dialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+  mvc:
+    throw-exception-if-no-handler-found: true
+
+ema-server:
+  ame:
+    audience: "ema-app"
+    issue: "https://ema.com"
+  client_credential:
+    client_id: "EmaApp"
+    client_secret: "APP_SUPER_SECRET"
+  test:
+    password: 123456

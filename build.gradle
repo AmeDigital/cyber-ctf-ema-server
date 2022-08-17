@@ -1,0 +1,68 @@
+buildscript {
+	configurations.classpath {
+		resolutionStrategy.activateDependencyLocking()
+	}
+}
+
+plugins {
+	id 'org.springframework.boot' version '2.6.1'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+
+
+group = 'br.com.ema'
+version = '0.0.13-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+ext{
+	springBootVersion = '2.6.1'
+}
+
+configurations {
+	all {
+		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+	}
+}
+
+dependencies {
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
+	implementation ('io.jsonwebtoken:jjwt-gson:0.11.2'){
+		exclude group:'com.google.code.gson', module:'gson'
+	}
+	implementation "com.h2database:h2:1.4.196"
+	implementation 'org.springdoc:springdoc-openapi-ui:1.6.5'
+	implementation 'com.google.code.gson:gson:2.8.9'
+	implementation 'mysql:mysql-connector-java'
+
+//	implementation 'org.hsqldb:hsqldb:2.6.1'
+//	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation "org.springframework.boot:spring-boot-starter-web:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-log4j2:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-security:${springBootVersion}"
+	implementation "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"
+	implementation 'commons-io:commons-io:2.11.0'
+	testImplementation "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
+}
+
+test {
+	useJUnitPlatform()
+}
+
+tasks.register('resolveAndLockAll') {
+	doFirst {
+		assert gradle.startParameter.writeDependencyLocks
+	}
+	doLast {
+		configurations.findAll {
+			// Add any custom filtering on the configurations to be resolved
+			it.canBeResolved
+		}.each { it.resolve() }
+	}
+}

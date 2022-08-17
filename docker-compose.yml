@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  database_local:
+    build:
+      context: .
+      dockerfile: "./docker/DatabaseDockerfile"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: AM3_DIGITAL_R3D_D3V_R3D3MPT1ON
+      MYSQL_DATABASE: ema_local
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: AM3_DIGITAL_R3D_D3V_R3D3MPT1ON
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+    volumes:
+      - /var/lib/mysql
+
+  emaweb:
+    depends_on:
+      database_local:
+        condition: service_healthy
+    build:
+      context: .
+      dockerfile: "./docker/EmaServerDockerfile"
+    ports:
+      - "8082:80"
