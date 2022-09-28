@@ -1,9 +1,8 @@
 # Ema Server - Red Dev Redemption
-![GitHub repo size](https://img.shields.io/github/repo-size/iuricode/README-template?style=for-the-badge)
-![GitHub language count](https://img.shields.io/github/languages/count/iuricode/README-template?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/iuricode/README-template?style=for-the-badge)
-![Bitbucket open issues](https://img.shields.io/bitbucket/issues/iuricode/README-template?style=for-the-badge)
-![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/iuricode/README-template?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/static/v1?label=RedTeam&message=CTF&color=red)
+![GitHub repo size](https://img.shields.io/badge/Tech-Docker-green)
+![GitHub repo size](https://img.shields.io/badge/Tech-Java-green)
+![GitHub repo size](https://img.shields.io/badge/Tech-Gradle-green)
 
 > Projeto de backend utilizado no CTF da Ame Digital.
 
