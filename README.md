@@ -28,9 +28,9 @@ docker-compose build
 docker-compose up 
 ```
 
-Após a execução bem sucedida dos comandos acima, acesse o swagger da aplicação (que roda na porta 8082) através do endereço:
+Após a execução bem sucedida dos comandos acima, acesse o swagger da aplicação (que roda na porta 80) através do endereço:
 
-[http://localhost:8082/swagger-ui/index.html](http://localhost:8082/swagger-ui/index.html)
+[http://localhost:80/swagger-ui/index.html](http://localhost:80/swagger-ui/index.html)
 
 ## Executando projeto com java
 
