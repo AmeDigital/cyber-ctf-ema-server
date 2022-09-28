@@ -9,5 +9,5 @@ import java.util.List;
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
 
     @Query("select o from OrderItem o where o.uuid = ?1")
-    public OrderItem getByUuid(String uuid);
+    OrderItem getByUuid(String uuid);
 }

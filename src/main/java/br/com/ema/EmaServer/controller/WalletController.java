@@ -31,7 +31,7 @@ public class WalletController extends  AbstractController{
 
     @Operation(summary = "Informações de associadas a uma Wallet.")
     @GetMapping("/{walletUuid}/info")
-    public Wallet getInfo(@PathVariable("walletUuid") String walletUuid, @RequestHeader(name="Authorization") String token){
+    public Wallet getInfo(@PathVariable("walletUuid") String walletUuid){
         Wallet wallet = (this.walletService.findByUuid(walletUuid));
         String FLAG_ownerUuid = "3361";
         if(wallet == null){

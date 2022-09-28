@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/logger")
 public class LoggerController {
 
-    private Logger logger = LogManager.getLogger(LoggerController.class);
+    private final Logger logger = LogManager.getLogger(LoggerController.class);
 
     @Autowired
     private LoggerService loggerService;

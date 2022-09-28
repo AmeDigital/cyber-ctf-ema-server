@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 public interface AddressItemRepository extends JpaRepository<AddressItem, Long> {
 
     @Query("select a from AddressItem a where a.id = ?1")
-    public AddressItem getid(Long id);
+    AddressItem getid(Long id);
 
     @Query("select a from AddressItem a where a.cep = ?1")
-    public AddressItem getByCep(String cep);
+    AddressItem getByCep(String cep);
 
 }

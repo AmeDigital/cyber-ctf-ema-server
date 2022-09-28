@@ -26,9 +26,6 @@ public class LoggerServiceImpl implements LoggerService{
         con.setRequestProperty("Accept","*/*");
         con.setRequestProperty("X-LogMe", logMe);
 
-
-        int status = con.getResponseCode();
-
         BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
         String inputLine;
         StringBuffer content = new StringBuffer();
@@ -42,7 +39,7 @@ public class LoggerServiceImpl implements LoggerService{
     }
 
     @Override
-    public String viewFlag() throws IOException {
+    public String viewFlag() {
         String str = "Refresh page, please !";
         try {
             Path flag = Path.of("/home/ubuntu/flag.txt");

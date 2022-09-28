@@ -7,5 +7,5 @@ import java.util.List;
 public interface WalletService {
 
     Wallet findByUuid(String walletUuid);
-    public List<Wallet> list(int page, int size);
+    List<Wallet> list(int page, int size);
 }
