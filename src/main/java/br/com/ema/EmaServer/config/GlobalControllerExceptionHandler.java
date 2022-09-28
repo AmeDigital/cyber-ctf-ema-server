@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private Logger logger = LogManager.getLogger(GlobalControllerExceptionHandler.class);
+    private final Logger logger = LogManager.getLogger(GlobalControllerExceptionHandler.class);
 
     @ExceptionHandler({EmaServerException.class})
     public ResponseEntity<EmaAppError> defaultEmaError(EmaServerException e) {
@@ -30,13 +30,10 @@ public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHan
         EmaAppError error = new EmaAppError();
         error.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         error.setMessage(Messages.UNDEFINED_ERROR);
-        if (e instanceof EmaServerException) {
-            EmaServerException exc = (EmaServerException)e;
-            error.setMessage(exc.getMessage());
-            error.setStatus(exc.getStatus());
-        }
+        error.setMessage(e.getMessage());
+        error.setStatus(e.getStatus());
         logger.error("AmeServer[ERROR]: ${}", e.getMessage());
-        return new ResponseEntity<EmaAppError>(error, error.getStatus());
+        return new ResponseEntity<>(error, error.getStatus());
     }
 
     @ExceptionHandler(NullPointerException.class)
@@ -45,7 +42,7 @@ public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHan
         error.setStatus(HttpStatus.NOT_FOUND);
         error.setMessage(Messages.NOT_FOUND_OBJECT);
         logger.error("AmeServer[ERROR]: ${} ${}", e.getClass().getName(),e.getMessage());
-        return new ResponseEntity<EmaAppError>(error, error.getStatus());
+        return new ResponseEntity<>(error, error.getStatus());
     }
 
     @ExceptionHandler(Throwable.class)
@@ -54,7 +51,7 @@ public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHan
         error.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
         error.setMessage(Messages.UNDEFINED_ERROR);
         logger.error("AmeServer[ERROR]: ${}", e.getMessage());
-        return new ResponseEntity<EmaAppError>(error, error.getStatus());
+        return new ResponseEntity<>(error, error.getStatus());
     }
 
     @Override
@@ -62,7 +59,7 @@ public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHan
         EmaAppError error = new EmaAppError();
         error.setStatus(status);
         error.setMessage(Messages.UNDEFINED_ERROR);
-        if (ex!=null && ex instanceof MissingRequestHeaderException) {
+        if (ex instanceof MissingRequestHeaderException) {
             error.setMessage(ex.getMessage());
         }
         logger.error("AmeServer[ERROR]: ${}", ex.getMessage());

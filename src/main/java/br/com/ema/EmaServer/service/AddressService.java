@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AddressService {
 
-    public Address getSellerByCep(String cep);
-    public List<Address> getSellersByLatLong(Double radius, Double lat, Double longi);
+    Address getSellerByCep(String cep);
+    List<Address> getSellersByLatLong(Double radius, Double lat, Double longi);
 
 }

@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 public interface WalletItemRepository extends JpaRepository<WalletItem, Long> {
 
     @Query("select w from WalletItem w where w.uuid = ?1")
-    public WalletItem getByUuid(String uuid);
+    WalletItem getByUuid(String uuid);
 }

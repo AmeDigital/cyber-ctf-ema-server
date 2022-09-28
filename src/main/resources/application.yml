@@ -9,7 +9,7 @@ server:
 
 logging:
   file:
-    path: /var/log/emaserver
+    path: ./log
   level:
     root: INFO
     br:
@@ -55,3 +55,6 @@ ema-server:
     client_secret: "APP_SUPER_SECRET"
   test:
     password: 123456
+  flag3:
+    api_secret: "^#5f&9wFV$D4&Ll6D6AGmbXc5sU2A8Y!G%wPf00095l@T4BukSsHobWjWaGV2%XX6mkEVK"
+    flag: "FLAG#3_{D0_N07_H4rd0c0d3_Y0ur_53cr375}"

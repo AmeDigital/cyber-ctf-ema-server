@@ -19,13 +19,13 @@ import java.nio.charset.StandardCharsets;
 
 public class JwtTokenFilter extends OncePerRequestFilter {
 
-    private AuthService authService;
+    private final AuthService authService;
 
     public JwtTokenFilter(AuthService authService){
         this.authService = authService;
     }
 
-    private Logger logger = LogManager.getLogger(JwtTokenFilter.class);
+    private final Logger logger = LogManager.getLogger(JwtTokenFilter.class);
 
 
     @Override
@@ -40,8 +40,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             EmaAppError error = new EmaAppError();
             error.setMessage(ex.getMessage());
             error.setStatus(ex.getStatus());
-            ((HttpServletResponse) response).setHeader("Content-Type", "application/json");
-            ((HttpServletResponse) response).setStatus(ex.getStatus().value());
+            response.setHeader("Content-Type", "application/json");
+            response.setStatus(ex.getStatus().value());
             String serialized = new ObjectMapper().writeValueAsString(error);
             response.getOutputStream().write(serialized.getBytes(StandardCharsets.UTF_8));
             logger.error("AmeServer[ERROR]: ${} - {}", request.getRequestURI(), ex.getMessage());
