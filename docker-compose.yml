@@ -24,4 +24,4 @@ services:
       context: .
       dockerfile: "./docker/EmaServerDockerfile"
     ports:
-      - "8082:80"
+      - "80:80"
