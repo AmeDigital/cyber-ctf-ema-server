@@ -69,14 +69,77 @@ Você pode executar localmente o banco de dados usando o seguinte comando de doc
 docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=AM3_DIGITAL_R3D_D3V_R3D3MPT1ON -e MYSQL_DATABASE=ema_local cyber-ctf-ema-server_database_local
 ```
 
-## API vulnerável ao ataque de Log4J
 
-Em construção.
-<p align="right">(<a href="#top">back to top</a>)</p>
+## API vulnerável ao ataque de Log4J e Servidor LDAP
 
-## Servidor LDAP
+### Pré-requisitos
 
-Em construção.
+- Utilizar o arquivo LDAPServer.jar no diretório \/log4j\/ldapserver deste repositório.
+- Utilizar o arquivo Undertow.jar no diretório \/log4j\/undertow deste repositório.
+
+### Necessidade de servidor LDAP e API Vulnerável
+
+Uma das flags consiste em explorar a vulnerabilidade Log4Shell na API Vulnerável. O fluxo de exploração prevê a chamada de requisições LDAP, e por isso é disponibilizado um servidor de LDAP que deve estar em execução para a correta exploração da vulnerabilidade.
+
+Após a exploração da vulnerabilidade, o processo do servidor LDAP é finalizado. Assim, é recomendada a criação de rotina para identificar a necessidade de reiniciar o processo. Essa rotina verifica a existência do arquivo \/home\/ubuntu\/Log4J.lck. Se o arquivo existir, após esperar 20s, esta mesma rotina deverá excluir os seguintes arquivos: \/home\/ubuntu\/Log4J.lck e \/home\/ubuntu\/flag.txt.
+
+
+## Criando rotina em máquinas Linux para verificar a existência de arquivo com a Flag.
+
+
+- Crie um arquivo EMA-API.service com a especificação da rotina.
+```shell
+touch /etc/systemd/system/EMA-API.service
+```
+
+```
+[Unit]
+Description=EMA API startup service
+Wants=network-online.target
+After=network-online.target
+[Service]
+ExecStart=/bin/bash /usr/local/bin/startup.sh
+[Install]
+WantedBy=multi-user.target
+```
+
+```
+touch /usr/local/bin/startup.sh
+```
+
+- Edite o arquivo \/usr\/local\/bin\/startup.sh com o seguinte conteúdo:
+
+```
+#!/usr/bin/env bash
+
+FILE=/home/ubuntu/Log4J.lck
+
+#Iniciando aplicações da API
+
+/usr/bin/java -jar /home/ubuntu/jar/LDAPServer.jar &
+/usr/bin/java -jar /home/ubuntu/jar/Undertow.jar &
+
+while true
+do
+
+        if [ -f "$FILE" ]; then
+                sleep 20
+                rm -f /home/ubuntu/Log4J.lck
+                rm -f /home/ubuntu/flag.txt
+                /usr/bin/java -jar /home/ubuntu/jar/Undertow.jar &
+        else
+                true
+        fi
+
+        sleep 10
+        echo "Executei" >/dev/null
+done
+```
+- Habilite o serviço via systemctl:
+```
+systemctl enable EMA-API
+```
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
