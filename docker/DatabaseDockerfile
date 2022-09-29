@@ -1,0 +1,3 @@
+FROM mysql:debian
+
+COPY docker/db/ema_local.sql /docker-entrypoint-initdb.d/

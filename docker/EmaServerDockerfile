@@ -1,0 +1,9 @@
+FROM adoptopenjdk/openjdk11:jdk-11.0.11_9-alpine
+
+USER root
+RUN mkdir log
+RUN chmod 777 -R log
+COPY build/libs/emaserver-0.0.13-SNAPSHOT.jar app.jar
+
+### Iniciando App.jar  ###
+CMD  $JAVA_HOME/bin/java -Xmx512m -Xms256m -jar app.jar
