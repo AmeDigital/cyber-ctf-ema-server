@@ -17,6 +17,8 @@
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
+# Executando Ema Server
+
 ## Executando projeto com docker
 
 ```shell
@@ -60,7 +62,7 @@ docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=AM3_DIGITAL_R3D_D3V_R3D3MPT1ON
 
 ```shell
 ./gradlew build 
-java -jar build\libs\emaserver-<VERSAL>-SNAPSHOT.jar
+java -jar build\libs\emaserver-<VERSAO>-SNAPSHOT.jar
 ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
