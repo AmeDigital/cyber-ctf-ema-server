@@ -25,7 +25,10 @@ O backend do Ema Server é composto pelos componentes:
 - Servidor LDAP (arquivo .jar disponibilizado na pasta log4/ deste repositório.)
 - Banco de dados (configurado via docker)
 
-Você pode optar por subir os componentes da solução de forma separada, conforme instruções abaixo. Recomenda-se que você use o docker para subir o projeto seguindo as instruções abaixo.
+Você pode optar por subir os componentes da solução de forma separada (vide próximas seções). Entretanto, recomenda-se que você use o docker para subir o projeto seguindo as instruções abaixo.
+
+Pré-requsito
+- Ter o docker-compose instalado.
 
 ```shell
 sudo service docker start
