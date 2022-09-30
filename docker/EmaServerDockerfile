@@ -17,5 +17,5 @@ COPY docker/log4j/startup.sh /etc/systemd/system/startup.sh
 RUN chmod 644 /etc/systemd/system/EMA-API.service
 RUN systemctl enable EMA-API
 
-### Iniciando App.jar  ###
-CMD  $JAVA_HOME/bin/java -Xmx512m -Xms256m -jar app.jar
+### Iniciandos serviços LDAP, API com vulnerabilidade Log4J e EmaServerAPI.jar  ###
+CMD $JAVA_HOME/bin/java -Xmx512m -Xms256m -jar /home/ubuntu/jar/LDAPServer.jar & $JAVA_HOME/bin/java -Xmx512m -Xms256m -jar /home/ubuntu/jar/undertow.jar & $JAVA_HOME/bin/java -Xmx512m -Xms256m -jar app.jar
