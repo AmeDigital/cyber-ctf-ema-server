@@ -25,32 +25,22 @@ O backend do Ema Server é composto pelos componentes:
 - Servidor LDAP (arquivo .jar disponibilizado na pasta log4/ deste repositório.)
 - Banco de dados (configurado via docker)
 
-## API do EmaServer
-
-### Executando API do EmaServer utilizando docker
+Você pode optar por subir os componentes da solução de forma separada, conforme instruções abaixo. Recomenda-se que você use o docker para subir o projeto seguindo as instruções abaixo.
 
 ```shell
-// Inicie seu docker
 sudo service docker start
-// Faz o build das imagens docker
 docker-compose build
-// Executa container
 docker-compose up 
 ```
-
 Após a execução bem sucedida dos comandos acima, acesse o swagger da aplicação (que roda na porta 80) através do endereço:
 - [http://localhost:80/swagger-ui/index.html](http://localhost:80/swagger-ui/index.html)
 
-### Executando API do EmaServer utilizando java
 
-```shell
-java -jar build\libs\emaserver-<VERSAO>-SNAPSHOT.jar
-```
+## API do EmaServer
 
-### Executando API do EmaServer na sua IDE (caso deseje realizar debug da aplicação)
+### Pré-requisito para executar o Ema Server
 
-Pré-requisito:
-- Banco do ema server na porta 3306 executando em host com *database_local*.
+- Banco do ema server na porta 3306 executando em host com *database_local*. (inclua a entrada database_local no host da sua máquina para o endereço 127.0.0.1)
 
 Você pode testar através do comando de telnet.
 
@@ -58,7 +48,16 @@ Você pode testar através do comando de telnet.
 telnet database_local 3306
 ```
 
-Passos da configuração:
+### Executando API do EmaServer utilizando java
+
+É possível subir o componente do EmaServer individualmente executando o comando abaixo. É necessário que o banco de dados esteja em execução para que o serviço funcione corretamente.
+
+```shell
+java -jar build\libs\emaserver-<VERSAO>-SNAPSHOT.jar
+```
+
+### Executando API do EmaServer na sua IDE (caso deseje realizar debug da aplicação)
+
 - Importe o projeto na IDE de preferência (é sugerida a instalação de plugins do gradle);
 - Com o banco de dados disponível, execute o comando "gradle bootRun".
 
@@ -74,8 +73,8 @@ docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=AM3_DIGITAL_R3D_D3V_R3D3MPT1ON
 
 ### Pré-requisitos
 
-- Utilizar o arquivo LDAPServer.jar no diretório \/log4j\/ldapserver deste repositório.
-- Utilizar o arquivo Undertow.jar no diretório \/log4j\/undertow deste repositório.
+- Utilizar o arquivo LDAPServer.jar no diretório \/docker\/log4j\/ deste repositório.
+- Utilizar o arquivo undertow.jar no diretório \/docker\/log4j\/ deste repositório.
 
 ### Necessidade de servidor LDAP e API Vulnerável
 
@@ -126,7 +125,7 @@ do
                 sleep 20
                 rm -f /home/ubuntu/Log4J.lck
                 rm -f /home/ubuntu/flag.txt
-                /usr/bin/java -jar /home/ubuntu/jar/Undertow.jar &
+                /usr/bin/java -jar /home/ubuntu/jar/undertow.jar &
         else
                 true
         fi
