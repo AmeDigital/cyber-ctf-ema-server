@@ -1,9 +1,20 @@
-FROM adoptopenjdk/openjdk11:jdk-11.0.11_9-alpine
+FROM ubuntu:latest
 
 USER root
+RUN apt update
+RUN apt install -y default-jre
+RUN apt install -y net-tools
 RUN mkdir log
+RUN mkdir -p /home/ubuntu/jar/
 RUN chmod 777 -R log
 COPY build/libs/emaserver-0.0.13-SNAPSHOT.jar app.jar
+
+COPY docker/log4j/LDAPServer.jar /home/ubuntu/jar/LDAPServer.jar
+COPY docker/log4j/undertow.jar /home/ubuntu/jar/undertow.jar
+COPY docker/log4j/EMA-API.service /etc/systemd/system/EMA-API.service
+COPY docker/log4j/startup.sh /etc/systemd/system/startup.sh
+RUN chmod 644 /etc/systemd/system/EMA-API.service
+RUN systemctl enable EMA-API
 
 ### Iniciando App.jar  ###
 CMD  $JAVA_HOME/bin/java -Xmx512m -Xms256m -jar app.jar

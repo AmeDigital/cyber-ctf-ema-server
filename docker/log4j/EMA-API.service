@@ -1,0 +1,8 @@
+[Unit]
+Description=EMA API startup service
+Wants=network-online.target
+After=network-online.target
+[Service]
+ExecStart=/bin/bash /usr/local/bin/startup.sh
+[Install]
+WantedBy=multi-user.target
