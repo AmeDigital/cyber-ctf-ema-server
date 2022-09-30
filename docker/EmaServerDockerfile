@@ -4,6 +4,7 @@ USER root
 RUN apt update
 RUN apt install -y default-jre
 RUN apt install -y net-tools
+RUN apt install -y systemctl
 RUN mkdir log
 RUN mkdir -p /home/ubuntu/jar/
 RUN chmod 777 -R log
